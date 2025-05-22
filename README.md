@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lingua-Learn
+
+A language learning platform focused on short, effective speaking practice sessions designed to fit into users' daily routines.
+
+## Features
+
+- Morning "Sunrise Speak" and evening "Sunset Speak" 10-minute practice sessions
+- AI-powered feedback on pronunciation and speaking skills
+- Progress tracking and streak system
+- Multiple language support with different proficiency levels
+- Subscription tiers (Free, Premium, Pro) with different features
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React, TailwindCSS
+- **Backend**: Next.js API Routes, MongoDB
+- **Authentication**: JWT-based authentication
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+ and npm
+- MongoDB database (local or Atlas)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/lingua-learn.git
+   cd lingua-learn
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. Create a `.env.local` file in the root directory with the following content:
+   ```
+   # MongoDB Connection
+   MONGODB_URI=mongodb+srv://username:password@cluster0.mongodb.net/lingua_learn?retryWrites=true&w=majority
+   
+   # JWT Configuration
+   JWT_SECRET=your-secret-key-here
+   JWT_EXPIRES_IN=7d
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API Routes
 
-## Deploy on Vercel
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login user
+- `POST /api/auth/logout` - Logout user
+- `GET /api/auth/me` - Get current user
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Languages
+- `GET /api/languages` - Get all available languages
+- `GET /api/languages/:id` - Get specific language
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### User
+- `GET /api/user/profile` - Get user profile
+- `PATCH /api/user/profile` - Update user profile
+- `GET /api/user/languages` - Get user's languages
+- `POST /api/user/languages` - Add language to user's profile
+- `PATCH /api/user/languages/:id` - Update language settings
+- `DELETE /api/user/languages/:id` - Remove language from profile
+- `GET /api/user/subscription` - Get user subscription
+- `PATCH /api/user/subscription` - Update user subscription
+
+### Exercises
+- `GET /api/exercises` - Get exercises based on filters
+
+### Progress
+- `GET /api/progress` - Get user progress
+- `POST /api/progress` - Create new progress record
+
+### Streaks
+- `GET /api/streaks` - Get user streak data
+
+## Database Models
+
+- **User**: User account information and authentication
+- **Language**: Available languages and subscription requirements
+- **Exercise**: Speaking, listening, and vocabulary exercises
+- **Progress**: User exercise completion and scoring
+- **Streak**: User practice streaks and history
+
+## License
+
+This project is licensed under the MIT License.
