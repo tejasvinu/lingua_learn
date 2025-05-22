@@ -1,34 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isAuthenticated } from './lib/auth'; // Reverted to use isAuthenticated
 
 export default async function middleware(request: NextRequest) {
-  // Paths that require authentication
-  const protectedPaths = [
-    '/dashboard',
-    '/profile',
-    '/practice',
-    '/progress',
-  ];
-  
-  const path = request.nextUrl.pathname;
-  const isProtectedPath = protectedPaths.some(protectedPath => 
-    path === protectedPath || path.startsWith(`${protectedPath}/`)
-  );
-  
-  if (isProtectedPath) {
-    const isAuth = await isAuthenticated(request); // Reverted to use isAuthenticated
-    
-    if (!isAuth) {
-      // Redirect to login page with return URL
-      const returnUrl = encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search); // Keep improved returnUrl
-      return NextResponse.redirect(new URL(`/login?returnUrl=${returnUrl}`, request.url));
-    }
-  }
-  
+  // This middleware now simply passes the request to the next handler
+  // without performing any authentication checks.
+  // console.log(`Middleware triggered for: ${request.nextUrl.pathname}, passing through.`); // Optional: for debugging
   return NextResponse.next();
 }
 
-// Configure which paths the middleware should run on
+// The config remains, so this middleware function will still run for matched paths,
+// but it won't perform operations incompatible with the Edge runtime.
 export const config = {
   matcher: [
     '/dashboard/:path*',

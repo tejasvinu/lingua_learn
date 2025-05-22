@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export interface IUser extends Document {
   firstName: string;
@@ -103,4 +103,4 @@ UserSchema.methods.comparePassword = async function (candidatePassword: string):
 // Delete the model if it exists to prevent OverwriteModelError during hot reloads
 const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 
-export default User; 
+export default User;
